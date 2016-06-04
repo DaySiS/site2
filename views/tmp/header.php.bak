@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+<title>Dead-Cow Project</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="/views/css/reset.css" type="text/css" media="screen">
+<link rel="stylesheet" href="/views/css/style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="/views/css/grid.css" type="text/css" media="screen">
+<script src="/views/js/jquery-1.7.1.min.js"></script>
+
+<script src="/views/js/script.js"></script>
+
+</head>
+
+<body id="page1">
+
+
+<?
+
+function display_menus($parent = 0, $shiftleft = 0, $parent_alias = 0) {
+
+	$query = mysql_query("SELECT * FROM `structure` WHERE `pid` = '$parent' AND `st` = 1 ORDER BY `id`") or die(mysql_error());
+ 
+	$shiftleft = "-".$shiftleft."px";
+	
+	if($parent != 0 AND mysql_num_rows($query) != 0) echo "<ul name='qwe' class='nav-inner' STYLE='left: $shiftleft'>";
+	
+ 
+if (mysql_num_rows($query) > 0) {
+
+ while ($row = mysql_fetch_array($query))
+ {
+ 
+	$http = "http://".HOST_NAME;
+ 
+	if($row['modul_type'] != 1) $row['alias'] = $row['modul_outlink']; 
+ 
+	$link = $row['alias'];
+ 
+	if($parent == 0) {
+		$parent_alias = $row[alias];
+	}
+	
+	if($parent != 0) {
+		$link = $parent_alias."/".$row[alias].".html";
+	}
+	
+	 
+ 
+	$shiftleft = $row['fld1'];
+	
+	
+	if($row['pid'] == 0) echo "<li class='nav__item list-services'><a class='nav__link' href='$http/$link'>$row[title]</a>"; else
+	
+	echo "<li class='nav-inner__item'><a class='nav-inner__link list-services' href='$http/$link'>$row[title]</a>";
+	
+ 
+ 
+ display_menus($row['id'],$shiftleft,$parent_alias);
+ echo "</li>";
+ } echo "</ul>";
+ }
+
+ 
+}
+
+
+echo '<link rel="stylesheet" href="/views/css/style2.css" type="text/css">';
+
+
+
+
+echo "
+
+
+<div class=\"l-wrapper\">
+<header class=\"l-header\">
+
+
+
+<nav class='site-nav'>";
+display_menus();
+echo "</nav>
+
+
+</div>
+</header>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section id='content' style='margin-top:-70px;'>
+ <div class='main'>
+ <div class='container_12'>
+	
+ <div class='wrapper'>
+ <article class='grid_12'>
+";
+
+?>

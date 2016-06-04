@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MyBase" uuid="4ba85f44-3399-4a89-89cd-ccbbfcc0b8f5">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-pattern>mybase.*</schema-pattern>
+      <default-schemas>mybase.*</default-schemas>
+    </data-source>
+  </component>
+</project>
